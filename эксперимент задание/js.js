@@ -68,7 +68,7 @@ Sim.prototype.elemNext = function(num) {
 	};
 
 	this.sldrElements[this.currentElement].style.opacity = '1';
-	this.sldrElements[prevElement].style.opacity = '0';
+	this.sldrElements[prevElement].style.opacity = '1';
 
 	if(this.options.dots) {
 		this.dotOn(prevElement); this.dotOff(this.currentElement)
@@ -76,11 +76,11 @@ Sim.prototype.elemNext = function(num) {
 };
 
 Sim.prototype.dotOn = function(num) {
-	this.indicatorDotsAll[num].style.cssText = 'background-color:#BBB; cursor:pointer;'
+	this.indicatorDotsAll[num].style.cssText = 'background:transparent; cursor:pointer;'
 };
 
 Sim.prototype.dotOff = function(num) {
-	this.indicatorDotsAll[num].style.cssText = 'background-color:#556; cursor: default;'
+	this.indicatorDotsAll[num].style.cssText = 'background:url(img/icon.png); cursor: default;'
 };
 
 Sim.initialize = function(that) {
@@ -116,7 +116,7 @@ Sim.initialize = function(that) {
 
 	if(!that.options.loop) {
 		that.leftArrow.style.display = 'none';  // отключить левую стрелку
-		that.options.auto = false; // отключить автопркрутку
+		that.options.auto = true; // отключить автопркрутку
 	}
 	else if(that.options.auto) {   // инициализация автопрокруки
 		setAutoScroll();
