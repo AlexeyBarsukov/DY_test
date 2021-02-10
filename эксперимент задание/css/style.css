@@ -85,6 +85,22 @@ img {
     line-height: 125%;
   }
 
+.more{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 18px 50px;
+  
+  position: absolute;
+  width: 210px;
+  height: 60px;
+  left: 1050px;
+  top: 504px;
+  color:white;
+  border: 2px dashed #FFFFFF;
+  box-sizing: border-box;
+  text-decoration: none;
+  }
 
 
   
