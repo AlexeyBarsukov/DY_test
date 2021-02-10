@@ -1,17 +1,20 @@
+*{
+  margin: 0;
+  padding: 0;
+}
+
+
 img {
     width: 100% !important;
   }
   
   .sim-slider {
-    max-width: 1000px;
+    width: 100%;
+    max-width: 1920px;
     min-width: 320px;
-    margin: 20px auto;
-    padding: 30px 50px;
-    border: 1px solid #ccd;
-    background-color: white;
   }
   
-  /* General styles */
+  /* Главные стили */
   .sim-slider {
     position: relative;
   }
@@ -33,6 +36,57 @@ img {
     top: 0;
     display: block;
   }
+
+  .sim-slider-element span{
+    position: absolute;
+    width: 85px;
+    height: 24px;
+    left: 260px;
+    top: 295px;
+    font-family: Ubuntu;
+    font-style: normal;
+    font-weight: 500;
+    font-size: 20px;
+    line-height: 120%;
+    color: #0ED984;
+    border-bottom: 3px solid #0ED984;
+}
+
+
+
+  .sim-slider-element h1{
+    position: absolute;
+    width: 1000px;
+    height: 212px;
+    top: 352px;
+    left: 260px;
+                
+    color: #FFFFFF;
+                
+    font-family: Ubuntu ;
+    font-style: normal;
+    font-size: 46px;
+    line-height: 110%;
+
+  }
+
+  .sim-slider-element p{
+    position: absolute;
+    width: 600px;
+    height: 50px;
+    left: 260px;
+    top: 480px;
+    color: #FFFFFF;
+
+    font-family: Ubuntu;
+    font-style: normal;
+    font-weight: 300;
+    font-size: 15px;
+    line-height: 125%;
+  }
+
+
+
   
   /* Navigation item styles */
   div.sim-slider-arrow-left,
@@ -87,3 +141,8 @@ img {
     border-radius: 5px;
     cursor: pointer;
   }
+
+
+
+
+ 

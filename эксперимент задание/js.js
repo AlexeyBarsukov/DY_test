@@ -26,7 +26,7 @@ Sim.defaults = {
 	// Default options for the carousel
 	loop: false,     // Бесконечное зацикливание слайдера
 	auto: true,     // Автоматическое пролистывание
-	interval: 1, // Интервал между пролистыванием элементов (мс)
+	interval: 1000, // Интервал между пролистыванием элементов (мс)
 	arrows: true,   // Пролистывание стрелками
 	dots: true      // Индикаторные точки
 };
@@ -80,7 +80,7 @@ Sim.prototype.dotOn = function(num) {
 };
 
 Sim.prototype.dotOff = function(num) {
-	this.indicatorDotsAll[num].style.cssText = 'background-color:#556; cursor:default;'
+	this.indicatorDotsAll[num].style.cssText = 'background-color:#556; cursor: default;'
 };
 
 Sim.initialize = function(that) {
