@@ -1,0 +1,180 @@
+/* Сброс настроек */
+*{
+  margin: 0;
+  padding: 0;
+}
+
+
+img {
+    width: 100% !important;
+    object-fit: cover;
+  }
+  
+  .sim-slider {
+    width: 100%;
+    height: 100vh;
+    max-width: 1920px;
+    min-width: 320px;
+  }
+  
+  /* Главные стили */
+  .sim-slider {
+    margin-bottom: 193px;
+    position: relative;
+  }
+  
+  .sim-slider-list {
+    margin: 0;
+    padding: 0;
+    list-style-type: none;
+    position: relative;
+  }
+  
+  .sim-slider-element {
+    width: 100%;
+    transition: visible 1s ease-in;
+    visibility: hidden;
+    position: absolute;
+    z-index: 2;
+    left: 0;
+    top: 0;
+    display: block;
+  }
+
+.more {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  padding: 18px 50px;
+  font-family:Ubuntu;
+  font-weight: 500;
+  font-size: 20px;
+  position: absolute;
+  width: 210px;
+  height: 60px;
+  left: 1050px;
+  top: 504px;
+  color:rgb(255, 255, 255);
+  border: 2px dashed #FFFFFF;
+  box-sizing: border-box;
+  text-decoration: none;
+  z-index: 100000;
+  }
+  .more:hover{
+    color: #0ED984;
+    background-color: rgb(255, 255, 255);
+  }
+  .one:hover{
+    color: #3577F6;
+  }
+  .two:hover{
+    color: #D72DF3;
+  }
+
+  
+  /* Стилизации стрелок*/
+  .sim-slider-arrow-left,
+  .sim-slider-arrow-right {
+    width: 22px;
+    height: 40px;
+    position: absolute;
+    cursor: pointer;
+    opacity: 0.6;
+    z-index: 4;
+  }
+  /* Левая стрелка */
+  .sim-slider-arrow-left {
+    left: 10px;
+    top: 40%;
+    display: block;
+    background: url("http://pvbk.spb.ru/inc/slider/sim-files/sim-arrow-left.png") no-repeat;
+  }
+  /* Правая стрелка */
+  .sim-slider-arrow-right {
+    right: 10px;
+    top: 40%;
+    display: block;
+    background: url("http://pvbk.spb.ru/inc/slider/sim-files/sim-arrow-right.png") no-repeat;
+  }
+  
+  .sim-slider-arrow-left:hover {
+    opacity: 1.0;
+  }
+  
+  .sim-slider-arrow-right:hover {
+    opacity: 1.0;
+  }
+  
+  /* Стилизации пагинации */
+  .sim-slider-dots {
+    width: 145px;
+    height: auto;
+    position: absolute;
+    left: 185px;
+    bottom: 138px;
+    z-index: 4;
+    text-align: left;    
+  }
+  
+  .sim-dot {
+    left: 170px;
+    width: 25px;
+    height: 25px;
+    margin: 2px 7px;
+    padding: 0;
+    display: inline-block;
+   
+    border:1px solid white;
+    border-radius: 50%  ;
+    cursor: pointer; 
+  }
+  span.sim-dot:hover{
+    border: 1px solid #0ED984;
+  }
+
+
+
+/* Второй блок */
+.content{
+  max-width: 1920px;
+}
+
+.content-icons{
+  display: flex;
+}
+
+
+.content_icons_elements{
+  width: 400px;
+  margin: 0 auto; 
+  margin-bottom: 202px;
+}
+.content_icons_elements h1{
+font-family: Ubuntu;
+font-style: normal;
+font-weight: bold;
+font-size: 36px;
+}
+
+.content_icons_elements p{
+  margin-top: 25px;
+  font-family: Ubuntu;
+  font-style: normal;
+  font-weight: 300;
+  font-size: 20px;
+  color: #615D5D;
+
+}
+
+.icon_element{
+  width: 100px;
+  height: 100px;
+}
+/* Цвета иконок */
+#icon{fill:#0ED984;}
+#icon1{fill:#3577F6;}
+#icon2{fill:#D72DF3;}
+/* цвета надписей заголовков */
+.green{color:#0ED984;}
+.blue{color: #3577F6;}
+.pink{color:#D72DF3;}

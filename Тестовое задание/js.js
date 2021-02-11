@@ -26,7 +26,7 @@ Sim.defaults = {
 	// Default options for the carousel
 	loop: false,     // Бесконечное зацикливание слайдера
 	auto: true,     // Автоматическое пролистывание
-	interval: 1000, // Интервал между пролистыванием элементов (мс)
+	interval: 100, // Интервал между пролистыванием элементов (мс)
 	arrows: true,   // Пролистывание стрелками
 	dots: true      // Индикаторные точки
 };
@@ -45,8 +45,8 @@ Sim.prototype.elemPrev = function(num) {
 		this.rightArrow.style.display = 'block'
 	};
 	
-	this.sldrElements[this.currentElement].style.opacity = '1';
-	this.sldrElements[prevElement].style.opacity = '0';
+	this.sldrElements[this.currentElement].style.visibility = 'visible';
+	this.sldrElements[prevElement].style.visibility = 'hidden';
 
 	if(this.options.dots) {
 		this.dotOn(prevElement); this.dotOff(this.currentElement)
@@ -67,8 +67,8 @@ Sim.prototype.elemNext = function(num) {
 		this.leftArrow.style.display = 'block'
 	};
 
-	this.sldrElements[this.currentElement].style.opacity = '1';
-	this.sldrElements[prevElement].style.opacity = '1';
+	this.sldrElements[this.currentElement].style.visibility = 'visible';
+	this.sldrElements[prevElement].style.visibility = 'visible';
 
 	if(this.options.dots) {
 		this.dotOn(prevElement); this.dotOff(this.currentElement)
@@ -79,9 +79,11 @@ Sim.prototype.dotOn = function(num) {
 	this.indicatorDotsAll[num].style.cssText = 'background:transparent; cursor:pointer;'
 };
 
+
 Sim.prototype.dotOff = function(num) {
-	this.indicatorDotsAll[num].style.cssText = 'background:url(img/icon.png); cursor: default;'
+	this.indicatorDotsAll[num].style.cssText = 'background:url(img/pagination.svg); border:none; cursor: default;'
 };
+
 
 Sim.initialize = function(that) {
 
@@ -111,7 +113,7 @@ Sim.initialize = function(that) {
 		that.leftArrow.style.display = 'none'; that.rightArrow.style.display = 'none'
 	};
 	if(that.elemCount >= 1) {   // показать первый элемент
-		that.sldrElemFirst.style.opacity = '1';
+		that.sldrElemFirst.style.visibility = 'visible';
 	};
 
 	if(!that.options.loop) {
@@ -121,20 +123,20 @@ Sim.initialize = function(that) {
 	else if(that.options.auto) {   // инициализация автопрокруки
 		setAutoScroll();
 		// Остановка прокрутки при наведении мыши на элемент
-		that.sldrList.addEventListener('mouseenter', function() {clearInterval(that.autoScroll)}, false);
-		that.sldrList.addEventListener('mouseleave', setAutoScroll, false)
+		that.sldrList.addEventListener('mouseenter', function() {clearInterval(that.autoScroll)}, true);
+		that.sldrList.addEventListener('mouseleave', setAutoScroll, true)
 	};
 
 	if(that.options.arrows) {  // инициализация стрелок
 		that.leftArrow.addEventListener('click', function() {
 			let fnTime = getTime();
-			if(fnTime - bgTime > 1000) {
+			if(fnTime - bgTime > 10) {
 				bgTime = fnTime; that.elemPrev()
 			}
 		}, false);
 		that.rightArrow.addEventListener('click', function() {
 			let fnTime = getTime();
-			if(fnTime - bgTime > 1000) {
+			if(fnTime - bgTime > 10) {
 				bgTime = fnTime; that.elemNext()
 			}
 		}, false)
