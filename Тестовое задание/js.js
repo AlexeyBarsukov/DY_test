@@ -1,10 +1,9 @@
 function Sim(sldrId) {
 
 	let id = document.getElementById(sldrId);
-	if(id) {
+	if (id) {
 		this.sldrRoot = id
-	}
-	else {
+	} else {
 		this.sldrRoot = document.querySelector('.sim-slider')
 	};
 
@@ -24,44 +23,57 @@ function Sim(sldrId) {
 Sim.defaults = {
 
 	// Default options for the carousel
-	loop: false,     // Бесконечное зацикливание слайдера
-	auto: true,     // Автоматическое пролистывание
+	loop: false, // Бесконечное зацикливание слайдера
+	auto: true, // Автоматическое пролистывание
 	interval: 100, // Интервал между пролистыванием элементов (мс)
-	arrows: true,   // Пролистывание стрелками
-	dots: true      // Индикаторные точки
+	arrows: true, // Пролистывание стрелками
+	dots: true // Индикаторные точки
 };
 
-Sim.prototype.elemPrev = function(num) {
+Sim.prototype.elemPrev = function (num) {
 	num = num || 1;
 
+	let slideID = '';
 	let prevElement = this.currentElement;
 	this.currentElement -= num;
-	if(this.currentElement < 0) this.currentElement = this.elemCount-1;
+	if (this.currentElement < 0) this.currentElement = this.elemCount - 1;
 
-	if(!this.options.loop) {
-		if(this.currentElement == 0) {
+	if (!this.options.loop) {
+		if (this.currentElement == 0) {
 			this.leftArrow.style.display = 'none'
 		};
 		this.rightArrow.style.display = 'block'
 	};
-	
+
 	this.sldrElements[this.currentElement].style.visibility = 'visible';
 	this.sldrElements[prevElement].style.visibility = 'hidden';
+	slideID = this.sldrElements[this.currentElement].dataset.id;
 
-	if(this.options.dots) {
-		this.dotOn(prevElement); this.dotOff(this.currentElement)
+	if (this.options.dots) {
+		this.dotOn(prevElement, slideID);
+		this.dotOff(this.currentElement, slideID)
 	}
+
+
+	var elems = document.querySelectorAll(".sim-dot");
+
+	for (i = 0; i < elems.length; ++i) {
+		elems[i].classList.remove('dot-slide-1', 'dot-slide-2', 'dot-slide-3');
+		elems[i].classList.add('dot-slide-' + slideID);
+	}
+
 };
 
-Sim.prototype.elemNext = function(num) {
+Sim.prototype.elemNext = function (num) {
 	num = num || 1;
-	
+
+	let slideID = '';
 	let prevElement = this.currentElement;
 	this.currentElement += num;
-	if(this.currentElement >= this.elemCount) this.currentElement = 0;
+	if (this.currentElement >= this.elemCount) this.currentElement = 0;
 
-	if(!this.options.loop) {
-		if(this.currentElement == this.elemCount-1) {
+	if (!this.options.loop) {
+		if (this.currentElement == this.elemCount - 1) {
 			this.rightArrow.style.display = 'none'
 		};
 		this.leftArrow.style.display = 'block'
@@ -69,23 +81,42 @@ Sim.prototype.elemNext = function(num) {
 
 	this.sldrElements[this.currentElement].style.visibility = 'visible';
 	this.sldrElements[prevElement].style.visibility = 'visible';
+	slideID = this.sldrElements[this.currentElement].dataset.id;
 
-	if(this.options.dots) {
-		this.dotOn(prevElement); this.dotOff(this.currentElement)
+	if (this.options.dots) {
+		this.dotOn(prevElement, slideID);
+		this.dotOff(this.currentElement, slideID)
+	}
+
+	var elems = document.querySelectorAll(".sim-dot");
+
+	for (i = 0; i < elems.length; ++i) {
+		elems[i].classList.remove('dot-slide-1', 'dot-slide-2', 'dot-slide-3');
+		elems[i].classList.add('dot-slide-' + slideID);
 	}
 };
 
-Sim.prototype.dotOn = function(num) {
+Sim.prototype.dotOn = function (num) {
 	this.indicatorDotsAll[num].style.cssText = 'background:transparent; cursor:pointer;'
 };
 
 
-Sim.prototype.dotOff = function(num) {
+Sim.prototype.dotOff = function (num, slideID) {
 	this.indicatorDotsAll[num].style.cssText = 'background:url(img/pagination.svg); border:none; cursor: default;'
+	if (slideID == 1) {
+		this.indicatorDotsAll[num].style.cssText = 'background:url(img/pagination.svg); border:none; cursor: default;';
+	}
+	if (slideID == 2) {
+		this.indicatorDotsAll[num].style.cssText = 'background:url(img/pagination2.svg); border:none; cursor: default;background-position: -130px;';
+	}
+	if (slideID == 3) {
+		this.indicatorDotsAll[num].style.cssText = 'background:url(img/pagination1.svg); border:none; cursor: default;background-position: -260px;';
+	}
+	
 };
 
 
-Sim.initialize = function(that) {
+Sim.initialize = function (that) {
 
 	// Constants
 	that.elemCount = that.sldrElements.length; // Количество элементов
@@ -98,75 +129,85 @@ Sim.initialize = function(that) {
 	function getTime() {
 		return new Date().getTime();
 	};
+
 	function setAutoScroll() {
-		that.autoScroll = setInterval(function() {
+		that.autoScroll = setInterval(function () {
 			let fnTime = getTime();
-			if(fnTime - bgTime + 10 > that.options.interval) {
-				bgTime = fnTime; that.elemNext()
+			if (fnTime - bgTime + 10 > that.options.interval) {
+				bgTime = fnTime;
+				that.elemNext()
 			}
 		}, that.options.interval)
 	};
 
 	// Start initialization
-	if(that.elemCount <= 1) {   // Отключить навигацию
-		that.options.auto = false; that.options.arrows = false; that.options.dots = false;
-		that.leftArrow.style.display = 'none'; that.rightArrow.style.display = 'none'
+	if (that.elemCount <= 1) { // Отключить навигацию
+		that.options.auto = false;
+		that.options.arrows = false;
+		that.options.dots = false;
+		that.leftArrow.style.display = 'none';
+		that.rightArrow.style.display = 'none'
 	};
-	if(that.elemCount >= 1) {   // показать первый элемент
+	if (that.elemCount >= 1) { // показать первый элемент
 		that.sldrElemFirst.style.visibility = 'visible';
 	};
 
-	if(!that.options.loop) {
-		that.leftArrow.style.display = 'none';  // отключить левую стрелку
+	if (!that.options.loop) {
+		that.leftArrow.style.display = 'none'; // отключить левую стрелку
 		that.options.auto = true; // отключить автопркрутку
-	}
-	else if(that.options.auto) {   // инициализация автопрокруки
+	} else if (that.options.auto) { // инициализация автопрокруки
 		setAutoScroll();
 		// Остановка прокрутки при наведении мыши на элемент
-		that.sldrList.addEventListener('mouseenter', function() {clearInterval(that.autoScroll)}, true);
+		that.sldrList.addEventListener('mouseenter', function () {
+			clearInterval(that.autoScroll)
+		}, true);
 		that.sldrList.addEventListener('mouseleave', setAutoScroll, true)
 	};
 
-	if(that.options.arrows) {  // инициализация стрелок
-		that.leftArrow.addEventListener('click', function() {
+	if (that.options.arrows) { // инициализация стрелок
+		that.leftArrow.addEventListener('click', function () {
 			let fnTime = getTime();
-			if(fnTime - bgTime > 10) {
-				bgTime = fnTime; that.elemPrev()
+			if (fnTime - bgTime > 10) {
+				bgTime = fnTime;
+				that.elemPrev()
 			}
 		}, false);
-		that.rightArrow.addEventListener('click', function() {
+		that.rightArrow.addEventListener('click', function () {
 			let fnTime = getTime();
-			if(fnTime - bgTime > 10) {
-				bgTime = fnTime; that.elemNext()
+			if (fnTime - bgTime > 10) {
+				bgTime = fnTime;
+				that.elemNext()
 			}
 		}, false)
-	}
-	else {
-		that.leftArrow.style.display = 'none'; that.rightArrow.style.display = 'none'
+	} else {
+		that.leftArrow.style.display = 'none';
+		that.rightArrow.style.display = 'none'
 	};
 
-	if(that.options.dots) {  // инициализация индикаторных точек
-		let sum = '', diffNum;
-		for(let i=0; i<that.elemCount; i++) {
+	if (that.options.dots) { // инициализация индикаторных точек
+		let sum = '',
+			diffNum;
+		for (let i = 0; i < that.elemCount; i++) {
 			sum += '<span class="sim-dot"></span>'
 		};
 		that.indicatorDots.innerHTML = sum;
 		that.indicatorDotsAll = that.sldrRoot.querySelectorAll('span.sim-dot');
 		// Назначаем точкам обработчик события 'click'
-		for(let n=0; n<that.elemCount; n++) {
-			that.indicatorDotsAll[n].addEventListener('click', function() {
+		for (let n = 0; n < that.elemCount; n++) {
+			that.indicatorDotsAll[n].addEventListener('click', function () {
 				diffNum = Math.abs(n - that.currentElement);
-				if(n < that.currentElement) {
-					bgTime = getTime(); that.elemPrev(diffNum)
-				}
-				else if(n > that.currentElement) {
-					bgTime = getTime(); that.elemNext(diffNum)
+				if (n < that.currentElement) {
+					bgTime = getTime();
+					that.elemPrev(diffNum)
+				} else if (n > that.currentElement) {
+					bgTime = getTime();
+					that.elemNext(diffNum)
 				}
 				// Если n == that.currentElement ничего не делаем
 			}, false)
 		};
-		that.dotOff(0);  // точка[0] выключена, остальные включены
-		for(let i=1; i<that.elemCount; i++) {
+		that.dotOff(0); // точка[0] выключена, остальные включены
+		for (let i = 1; i < that.elemCount; i++) {
 			that.dotOn(i)
 		}
 	}

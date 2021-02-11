@@ -2,7 +2,6 @@
 *{
   margin: 0;
   padding: 0;
-  box-sizing: border-box;
 }
 
 
@@ -129,10 +128,18 @@ img {
     border-radius: 50%  ;
     cursor: pointer; 
   }
-  span.sim-dot:hover{
+
+  .sim-dot:hover {
     border: 1px solid #0ED984;
   }
 
+  .dot-slide-2:hover {
+    border: 1px solid #3577F6;
+  }
+
+  .dot-slide-3:hover {
+    border: 1px solid #D72DF3;
+  }
 
 
 /* Второй блок */
